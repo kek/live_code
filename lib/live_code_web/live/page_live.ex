@@ -14,7 +14,7 @@ defmodule LiveCodeWeb.PageLive do
 
     <h2>See it compute!</h2>
 
-    <pre><code><%= @result %></code></pre>
+    <p class="alert-info" style="padding: 10px;"><%= @result %></code></p>
 
     <h2>Try the functions!</h2>
     <p><%= inspect LiveCode.Library.__info__(:functions) |> Keyword.drop([:generate_ast]) %></p>
