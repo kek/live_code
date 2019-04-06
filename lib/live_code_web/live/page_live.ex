@@ -11,21 +11,25 @@ defmodule LiveCodeWeb.PageLive do
       <textarea name="code"></textarea>
     </form>
     </p>
+
     <h2>See it compute!</h2>
-    <p>
+
     <pre><code><%= @result %></code></pre>
-    </p>
 
     <h2>Try the functions!</h2>
     <p><%= inspect LiveCode.Library.__info__(:functions) |> Keyword.drop([:generate_ast]) %></p>
 
     <h2>Try the examples!</h2>
+
     <pre><code>(add 1 2)
     </code></pre>
 
     <pre><code>(if (eq (add 2 2) 5)
         "true is false"
         "false is false")
+    </code></pre>
+
+    <pre><code>(map [1 2 3] identity)
     </code></pre>
 
     <h2>Remember your parenthesises!</h2>

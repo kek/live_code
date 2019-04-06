@@ -20,7 +20,7 @@ defmodule LiveCode.Library do
     end)
   end
 
-  def id(x), do: x
+  def identity(x), do: x
 
   def test, do: "test"
 end
