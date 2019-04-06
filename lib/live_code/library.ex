@@ -1,6 +1,7 @@
 defmodule LiveCode.Library do
   use Symbelix.Library
   require Logger
+  alias LiveCode.Memory
 
   def add(a, b), do: a + b
 
@@ -13,7 +14,7 @@ defmodule LiveCode.Library do
   def map(list, function) do
     list
     |> Enum.map(fn item ->
-      __MODULE__.apply(function, item)
+      __MODULE__.apply([function, item])
     end)
   end
 
@@ -21,7 +22,17 @@ defmodule LiveCode.Library do
 
   def test, do: "test"
 
+  @doc """
+  iex> "(apply [identity 1])" |> Symbelix.run(LiveCode.Library)
+  1
+  iex> "(apply [apply [identity 1]])" |> Symbelix.run(LiveCode.Library)
+  1
+  """
   def apply([function]) when is_function(function) do
+    function.()
+  end
+
+  def apply(function) when is_function(function) do
     function.()
   end
 
@@ -35,9 +46,24 @@ defmodule LiveCode.Library do
     result
   end
 
-  def lambda(code) do
+  def proc(code) do
     fn ->
-      apply(code)
+      __MODULE__.apply(code)
     end
+  end
+
+  @doc """
+  iex> "(set foo 1)" |> Symbelix.run(LiveCode.Library)
+  "ok"
+  iex> "(get foo)" |> Symbelix.run(LiveCode.Library)
+  1
+  """
+  def set(name, value) do
+    :ok = Process.get(:memory) |> Memory.set(name, value)
+    "ok"
+  end
+
+  def get(name) do
+    Process.get(:memory) |> Memory.get(name)
   end
 end

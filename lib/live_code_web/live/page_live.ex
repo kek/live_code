@@ -1,6 +1,6 @@
 defmodule LiveCodeWeb.PageLive do
   use Phoenix.LiveView
-  alias LiveCode.Library
+  alias LiveCode.{Library, Memory}
 
   def render(assigns) do
     ~L"""
@@ -38,6 +38,8 @@ defmodule LiveCodeWeb.PageLive do
 
   def mount(_, socket) do
     # if connected?(socket), do: :timer.send_interval(100, self(), :update)
+    {:ok, memory} = Memory.start_link()
+    Process.put(:memory, memory)
     {:ok, assign(socket, :result, "READY")}
   end
 

@@ -40,7 +40,8 @@ defmodule LiveCode.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:phoenix_live_view, github: "phoenixframework/phoenix_live_view"},
-      {:symbelix, github: "kek/symbelix"}
+      {:symbelix, github: "kek/symbelix"},
+      {:mix_test_watch, "~> 0.9.0", only: :dev, runtime: false}
     ]
   end
 end
