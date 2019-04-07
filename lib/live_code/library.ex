@@ -23,36 +23,6 @@ defmodule LiveCode.Library do
   def test, do: "test"
 
   @doc """
-  iex> "(apply [identity 1])" |> Symbelix.run(LiveCode.Library)
-  1
-  iex> "(apply [apply [identity 1]])" |> Symbelix.run(LiveCode.Library)
-  1
-  """
-  def apply([function]) when is_function(function) do
-    function.()
-  end
-
-  def apply(function) when is_function(function) do
-    function.()
-  end
-
-  def apply([function | args]) when is_function(function) do
-    function.(args)
-  end
-
-  def apply([function | args]) when is_list(function) do
-    {:ok, ast} = generate_ast([function | args])
-    {result, _binding} = Code.eval_quoted(ast)
-    result
-  end
-
-  def proc(code) do
-    fn ->
-      __MODULE__.apply(code)
-    end
-  end
-
-  @doc """
   iex> "(set foo 1)" |> Symbelix.run(LiveCode.Library)
   "ok"
   iex> "(get foo)" |> Symbelix.run(LiveCode.Library)
