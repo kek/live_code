@@ -3,37 +3,7 @@ defmodule LiveCodeWeb.PageLive do
   alias LiveCode.{Library, Memory}
 
   def render(assigns) do
-    ~L"""
-    <h1>Type code here! 🤖</h1>
-
-    <p>
-    <form name="program" phx-change="evaluate">
-      <textarea name="code"></textarea>
-    </form>
-    </p>
-
-    <h2>See it compute!</h2>
-
-    <p class="alert-info" style="padding: 10px;"><%= @result %></code></p>
-
-    <h2>Try the functions!</h2>
-    <p><%= inspect LiveCode.Library.__info__(:functions) |> Keyword.drop([:generate_ast]) %></p>
-
-    <h2>Try the examples!</h2>
-
-    <pre><code>(add 1 2)
-    </code></pre>
-
-    <pre><code>(if (eq (add 2 2) 5)
-        "true is false"
-        "false is false")
-    </code></pre>
-
-    <pre><code>(map [1 2 3] identity)
-    </code></pre>
-
-    <h2>Remember your parenthesises!</h2>
-    """
+    LiveCodeWeb.PageView.render("page.html", assigns)
   end
 
   def mount(_, socket) do

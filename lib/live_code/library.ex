@@ -14,13 +14,20 @@ defmodule LiveCode.Library do
   def map(list, function) do
     list
     |> Enum.map(fn item ->
-      __MODULE__.apply([function, item])
+      {:ok, ast} = generate_ast([function, item])
+      Logger.info(inspect(ast))
+      {result, _binding} = Code.eval_quoted(ast)
+      result
     end)
   end
 
   def identity(x), do: x
 
   def test, do: "test"
+
+  def progn(items) do
+    Enum.reduce(items, fn item, _ -> item end)
+  end
 
   @doc """
   iex> "(set foo 1)" |> Symbelix.run(LiveCode.Library)

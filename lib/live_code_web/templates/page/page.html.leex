@@ -1,0 +1,41 @@
+<h1>Type code here! 🤖</h1>
+
+<p>
+<form name="program" phx-change="evaluate">
+  <textarea name="code"></textarea>
+</form>
+</p>
+
+<h2>See it compute!</h2>
+
+<p class="alert-info" style="padding: 10px;"><%= @result %></code></p>
+
+<h2>Try the functions!</h2>
+<p><%= inspect LiveCode.Library.__info__(:functions) |> Keyword.drop([:generate_ast]) %></p>
+
+<h2>Try the examples!</h2>
+
+<pre><code>(add 1 2)
+</code></pre>
+
+<pre><code>(if (eq (add 2 2) 5)
+    "true is false"
+    "false is false")
+</code></pre>
+
+<pre><code>(map [1 2 3] identity)</code></pre>
+
+<pre><code>(progn
+    [(set x 0)
+    (set x (add 1 (get x)))
+    (get x)]
+</code></pre>
+
+<pre><code>(apply (proc add 1 2))</code></pre>
+
+<pre><code>(set inc-x (proc set x (add 1 (get x))))</code></pre>
+<pre><code>(set x 0)</code></pre>
+<pre><code>(apply (get inc-x))</pre></code>
+<pre><code>(get x)</code></pre>
+
+<h2>Remember your parenthesises!</h2>
